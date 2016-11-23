@@ -1,61 +1,31 @@
-/*******************************************************************************
- * Copyright (c) 2010, 2012 Institute for Dutch Lexicology
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *******************************************************************************/
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-
-/**
- * Utilities to do with input/output (streams, writers/reader)
- */
+import java.io.*;
+import java.util.*;
+import java.net.*;
+import java.nio.file.*;
+import java.text.DateFormat;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import static java.util.Calendar.DAY_OF_YEAR;
+import java.util.Locale;
+import java.util.TimeZone;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 public class read_file {
-
-    /**
-     * Wraps the specified reader in a BufferedReader for efficient and convenient access.
-     *
-     * Does nothing if the reader is already a BufferedReader.
-     *
-     * @param reader
-     *            the reader to wrap
-     * @return the wrapped reader
-     */
-    public static BufferedReader makeBuffered(Reader reader) {
-        if (reader instanceof BufferedReader)
-            return (BufferedReader) reader;
-        return new BufferedReader(reader);
-    }
-
-    /**
-     * Read text from an input stream.
-     * @param is the input stream
-     * @return the text read
-     * @throws IOException
-     */
-    public static String readStream(InputStream is) throws IOException {
-        BufferedReader reader = makeBuffered(new InputStreamReader(is));
-        StringBuilder b = new StringBuilder();
-        while (true) {
-            String line = reader.readLine();
-            if (line == null)
-                break;
-            b.append(line);
+    public static String lib_read_file_concat_0_2(String file_name) throws Exception
+    {
+        StringBuffer result = new StringBuffer();
+        BufferedReader file = new BufferedReader(new InputStreamReader(new FileInputStream(file_name)));
+        String line = file.readLine();
+        while (line != null) {
+            result.append(line);
+            result.append("\n");
+            line = file.readLine();
         }
-        return b.toString();
+        file.close();
+        return result.toString();
     }
-
 }
